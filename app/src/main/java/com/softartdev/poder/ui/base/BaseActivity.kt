@@ -1,7 +1,6 @@
 package com.softartdev.poder.ui.base
 
 import android.os.Bundle
-import android.support.annotation.LayoutRes
 import android.support.v4.util.LongSparseArray
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -36,7 +35,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layoutId())
+        setContentView(layout)
         ButterKnife.bind(this)
         // Create the ActivityComponent and reuses cached ConfigPersistentComponent if this is
         // being called after a configuration change.
@@ -56,7 +55,7 @@ abstract class BaseActivity : AppCompatActivity() {
         activityComponent?.inject(this)
     }
 
-    @LayoutRes abstract fun layoutId(): Int
+    abstract val layout: Int
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

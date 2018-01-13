@@ -9,12 +9,12 @@ import com.softartdev.poder.ui.common.ErrorView
 import com.softartdev.poder.ui.detail.DetailActivity
 import com.softartdev.poder.util.gone
 import com.softartdev.poder.util.visible
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_pokemon.*
 import timber.log.Timber
 import javax.inject.Inject
 
 
-class PokemonActivity : BaseActivity(), PokemonMvpView, PokemonAdapter.ClickListener, ErrorView.ErrorListener {
+class PokemonActivity(override val layout: Int = R.layout.activity_pokemon) : BaseActivity(), PokemonMvpView, PokemonAdapter.ClickListener, ErrorView.ErrorListener {
 
     @Inject lateinit var pokemonAdapter: PokemonAdapter
     @Inject lateinit var mPokemonPresenter: PokemonPresenter
@@ -45,8 +45,6 @@ class PokemonActivity : BaseActivity(), PokemonMvpView, PokemonAdapter.ClickList
 
         mPokemonPresenter.getPokemon(POKEMON_COUNT)
     }
-
-    override fun layoutId() = R.layout.activity_main
 
     override fun onDestroy() {
         super.onDestroy()

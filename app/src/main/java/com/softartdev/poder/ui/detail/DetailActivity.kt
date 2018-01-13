@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class DetailActivity : BaseActivity(), DetailMvpView, ErrorView.ErrorListener {
+class DetailActivity(override val layout: Int = R.layout.activity_detail) : BaseActivity(), DetailMvpView, ErrorView.ErrorListener {
 
     @Inject lateinit var detailPresenter: DetailPresenter
 
@@ -52,8 +52,6 @@ class DetailActivity : BaseActivity(), DetailMvpView, ErrorView.ErrorListener {
 
         detailPresenter.getPokemon(pokemonName as String)
     }
-
-    override fun layoutId() = R.layout.activity_detail
 
     override fun showPokemon(pokemon: Pokemon) {
         if (pokemon.sprites.frontDefault != null) {

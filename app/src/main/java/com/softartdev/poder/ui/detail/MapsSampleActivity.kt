@@ -10,7 +10,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.softartdev.poder.R
 import com.softartdev.poder.ui.base.BaseActivity
 
-class MapsSampleActivity : BaseActivity(), OnMapReadyCallback {
+class MapsSampleActivity(override val layout: Int = R.layout.activity_maps_sample) : BaseActivity(), OnMapReadyCallback {
 
     private var map: GoogleMap? = null
 
@@ -21,8 +21,6 @@ class MapsSampleActivity : BaseActivity(), OnMapReadyCallback {
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
-
-    override fun layoutId() = R.layout.activity_maps_sample
 
     /**
      * Manipulates the map once available.

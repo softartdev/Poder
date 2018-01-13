@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_pokemon"
+        android:icon="@drawable/pokeball"
+        android:title="@string/title_pokemon"/>
+
+    <item
+        android:id="@+id/navigation_map"
+        android:icon="@drawable/google_maps"
+        android:title="@string/title_map"/>
+
+    <item
+        android:id="@+id/navigation_downloads"
+        android:icon="@drawable/folder_download"
+        android:title="@string/title_downloads"/>
+
+</menu>

@@ -10,7 +10,7 @@ import android.support.test.runner.AndroidJUnit4
 import com.softartdev.poder.common.TestComponentRule
 import com.softartdev.poder.common.TestDataFactory
 import com.softartdev.poder.data.model.Pokemon
-import com.softartdev.poder.features.pokemon.PokemonActivity
+import com.softartdev.poder.ui.pokemon.PokemonActivity
 import com.softartdev.poder.util.ErrorTestUtil
 import io.reactivex.Single
 import org.junit.Rule

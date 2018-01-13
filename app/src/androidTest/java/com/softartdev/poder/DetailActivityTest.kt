@@ -3,7 +3,7 @@ package com.softartdev.poder
 import com.softartdev.poder.common.TestComponentRule
 import com.softartdev.poder.common.TestDataFactory
 import com.softartdev.poder.data.model.Pokemon
-import com.softartdev.poder.features.detail.DetailActivity
+import com.softartdev.poder.ui.detail.DetailActivity
 import com.softartdev.poder.util.ErrorTestUtil
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView

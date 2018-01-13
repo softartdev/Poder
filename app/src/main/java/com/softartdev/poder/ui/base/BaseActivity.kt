@@ -1,4 +1,4 @@
-package com.softartdev.poder.features.base
+package com.softartdev.poder.ui.base
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes

@@ -1,4 +1,4 @@
-package com.softartdev.poder.features.base
+package com.softartdev.poder.ui.base
 
 import rx.Subscription
 import rx.subscriptions.CompositeSubscription

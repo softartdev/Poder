@@ -1,4 +1,4 @@
-package com.softartdev.poder.features.common
+package com.softartdev.poder.ui.common
 
 import android.annotation.TargetApi
 import android.content.Context

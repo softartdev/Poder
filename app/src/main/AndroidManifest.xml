@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.softartdev.poder.features.pokemon.PokemonActivity"
+            android:name="com.softartdev.poder.ui.pokemon.PokemonActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.softartdev.poder.features.detail.DetailActivity"
+            android:name="com.softartdev.poder.ui.detail.DetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!--
@@ -45,7 +45,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.softartdev.poder.features.detail.MapsSampleActivity"
+            android:name="com.softartdev.poder.ui.detail.MapsSampleActivity"
             android:label="@string/title_activity_maps_sample" />
     </application>
 

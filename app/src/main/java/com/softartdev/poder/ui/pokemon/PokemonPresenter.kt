@@ -1,7 +1,7 @@
-package com.softartdev.poder.features.pokemon
+package com.softartdev.poder.ui.pokemon
 
 import com.softartdev.poder.data.DataManager
-import com.softartdev.poder.features.base.BasePresenter
+import com.softartdev.poder.ui.base.BasePresenter
 import com.softartdev.poder.injection.ConfigPersistent
 import com.softartdev.poder.util.rx.scheduler.SchedulerUtils
 import javax.inject.Inject

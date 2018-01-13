@@ -1,12 +1,12 @@
-package com.softartdev.poder.features.pokemon
+package com.softartdev.poder.ui.pokemon
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.softartdev.poder.R
-import com.softartdev.poder.features.base.BaseActivity
-import com.softartdev.poder.features.common.ErrorView
-import com.softartdev.poder.features.detail.DetailActivity
+import com.softartdev.poder.ui.base.BaseActivity
+import com.softartdev.poder.ui.common.ErrorView
+import com.softartdev.poder.ui.detail.DetailActivity
 import com.softartdev.poder.util.gone
 import com.softartdev.poder.util.visible
 import kotlinx.android.synthetic.main.activity_main.*

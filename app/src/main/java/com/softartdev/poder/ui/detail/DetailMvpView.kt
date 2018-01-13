@@ -1,8 +1,8 @@
-package com.softartdev.poder.features.detail
+package com.softartdev.poder.ui.detail
 
 import com.softartdev.poder.data.model.Pokemon
 import com.softartdev.poder.data.model.Statistic
-import com.softartdev.poder.features.base.MvpView
+import com.softartdev.poder.ui.base.MvpView
 
 interface DetailMvpView : MvpView {
 

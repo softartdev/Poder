@@ -1,4 +1,4 @@
-package com.softartdev.poder.features.detail
+package com.softartdev.poder.ui.detail
 
 import android.content.Context
 import android.content.Intent
@@ -7,9 +7,9 @@ import android.view.View
 import com.softartdev.poder.R
 import com.softartdev.poder.data.model.Pokemon
 import com.softartdev.poder.data.model.Statistic
-import com.softartdev.poder.features.base.BaseActivity
-import com.softartdev.poder.features.common.ErrorView
-import com.softartdev.poder.features.detail.widget.StatisticView
+import com.softartdev.poder.ui.base.BaseActivity
+import com.softartdev.poder.ui.common.ErrorView
+import com.softartdev.poder.ui.detail.widget.StatisticView
 import com.softartdev.poder.util.gone
 import com.softartdev.poder.util.loadImageFromUrl
 import com.softartdev.poder.util.visible

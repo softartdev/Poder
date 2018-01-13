@@ -30,7 +30,7 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.softartdev.poder.features.common.ErrorView
+    <com.softartdev.poder.ui.common.ErrorView
         android:id="@+id/viewError"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

@@ -3,8 +3,8 @@ package com.softartdev.poder
 import com.nhaarman.mockito_kotlin.*
 import com.softartdev.poder.common.TestDataFactory
 import com.softartdev.poder.data.DataManager
-import com.softartdev.poder.features.pokemon.PokemonMvpView
-import com.softartdev.poder.features.pokemon.PokemonPresenter
+import com.softartdev.poder.ui.pokemon.PokemonMvpView
+import com.softartdev.poder.ui.pokemon.PokemonPresenter
 import com.softartdev.poder.util.RxSchedulersOverrideRule
 import io.reactivex.Single
 import org.junit.After

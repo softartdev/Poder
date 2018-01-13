@@ -1,6 +1,6 @@
-package com.softartdev.poder.features.pokemon
+package com.softartdev.poder.ui.pokemon
 
-import com.softartdev.poder.features.base.MvpView
+import com.softartdev.poder.ui.base.MvpView
 
 interface PokemonMvpView : MvpView {
 

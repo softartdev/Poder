@@ -1,4 +1,4 @@
-package com.softartdev.poder.features.detail.widget
+package com.softartdev.poder.ui.detail.widget
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi

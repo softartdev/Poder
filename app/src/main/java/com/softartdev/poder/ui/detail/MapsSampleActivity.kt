@@ -1,4 +1,4 @@
-package com.softartdev.poder.features.detail
+package com.softartdev.poder.ui.detail
 
 import android.os.Bundle
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -8,7 +8,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.softartdev.poder.R
-import com.softartdev.poder.features.base.BaseActivity
+import com.softartdev.poder.ui.base.BaseActivity
 
 class MapsSampleActivity : BaseActivity(), OnMapReadyCallback {
 

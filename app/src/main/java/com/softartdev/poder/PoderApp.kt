@@ -12,15 +12,9 @@ import com.softartdev.poder.injection.module.AppModule
 import com.softartdev.poder.injection.module.NetworkModule
 import timber.log.Timber
 
-class MvpStarterApplication : MultiDexApplication() {
+class PoderApp : MultiDexApplication() {
 
     private var appComponent: AppComponent? = null
-
-    companion object {
-        operator fun get(context: Context): MvpStarterApplication {
-            return context.applicationContext as MvpStarterApplication
-        }
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -48,5 +42,9 @@ class MvpStarterApplication : MultiDexApplication() {
         set(appComponent) {
             this.appComponent = appComponent
         }
+
+    companion object {
+        operator fun get(context: Context): PoderApp = context.applicationContext as PoderApp
+    }
 
 }

@@ -28,7 +28,7 @@ class PokemonActivity(override val layout: Int = R.layout.activity_pokemon) : Ba
         activityComponent().inject(this)
         mPokemonPresenter.attachView(this)
 
-        setSupportActionBar(main_toolbar)
+        setSupportActionBar(pokemon_toolbar)
         swipeToRefresh?.apply {
             setProgressBackgroundColorSchemeResource(R.color.primary)
             setColorSchemeResources(R.color.white)

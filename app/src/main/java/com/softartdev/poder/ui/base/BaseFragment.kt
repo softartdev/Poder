@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import butterknife.ButterKnife
-import com.softartdev.poder.MvpStarterApplication
+import com.softartdev.poder.PoderApp
 import com.softartdev.poder.injection.component.ConfigPersistentComponent
 import com.softartdev.poder.injection.component.DaggerConfigPersistentComponent
 import com.softartdev.poder.injection.component.FragmentComponent
@@ -43,7 +43,7 @@ abstract class BaseFragment : Fragment() {
         if (componentsArray.get(fragmentId) == null) {
             Timber.i("Creating new ConfigPersistentComponent id=%d", fragmentId)
             configPersistentComponent = DaggerConfigPersistentComponent.builder()
-                    .appComponent(MvpStarterApplication[activity as Context].component)
+                    .appComponent(PoderApp[activity as Context].component)
                     .build()
             componentsArray.put(fragmentId, configPersistentComponent)
         } else {

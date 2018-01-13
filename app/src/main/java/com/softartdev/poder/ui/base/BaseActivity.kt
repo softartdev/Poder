@@ -5,7 +5,7 @@ import android.support.v4.util.LongSparseArray
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import butterknife.ButterKnife
-import com.softartdev.poder.MvpStarterApplication
+import com.softartdev.poder.PoderApp
 import com.softartdev.poder.injection.component.ActivityComponent
 import com.softartdev.poder.injection.component.ConfigPersistentComponent
 import com.softartdev.poder.injection.component.DaggerConfigPersistentComponent
@@ -44,7 +44,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (componentsArray.get(activityId) == null) {
             Timber.i("Creating new ConfigPersistentComponent id=%d", activityId)
             configPersistentComponent = DaggerConfigPersistentComponent.builder()
-                    .appComponent(MvpStarterApplication[this].component)
+                    .appComponent(PoderApp[this].component)
                     .build()
             componentsArray.put(activityId, configPersistentComponent)
         } else {

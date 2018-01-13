@@ -1,4 +1,4 @@
-package com.softartdev.poder.features.main
+package com.softartdev.poder.features.pokemon
 
 import com.softartdev.poder.features.base.MvpView
 

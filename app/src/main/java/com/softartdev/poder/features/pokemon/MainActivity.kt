@@ -1,4 +1,4 @@
-package com.softartdev.poder.features.main
+package com.softartdev.poder.features.pokemon
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager

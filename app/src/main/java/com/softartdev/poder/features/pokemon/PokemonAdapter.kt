@@ -1,4 +1,4 @@
-package com.softartdev.poder.features.main
+package com.softartdev.poder.features.pokemon
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

@@ -2,7 +2,7 @@ package com.softartdev.poder.features.pokemon
 
 import com.softartdev.poder.features.base.MvpView
 
-interface MainMvpView : MvpView {
+interface PokemonMvpView : MvpView {
 
     fun showPokemon(pokemon: List<String>)
 

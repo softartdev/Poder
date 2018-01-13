@@ -7,8 +7,8 @@ import com.softartdev.poder.util.rx.scheduler.SchedulerUtils
 import javax.inject.Inject
 
 @ConfigPersistent
-class MainPresenter @Inject
-constructor(private val dataManager: DataManager) : BasePresenter<MainMvpView>() {
+class PokemonPresenter @Inject
+constructor(private val dataManager: DataManager) : BasePresenter<PokemonMvpView>() {
 
     fun getPokemon(limit: Int) {
         checkViewAttached()

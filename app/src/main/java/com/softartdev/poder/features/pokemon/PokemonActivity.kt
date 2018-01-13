@@ -14,10 +14,10 @@ import timber.log.Timber
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity(), MainMvpView, PokemonAdapter.ClickListener, ErrorView.ErrorListener {
+class PokemonActivity : BaseActivity(), PokemonMvpView, PokemonAdapter.ClickListener, ErrorView.ErrorListener {
 
     @Inject lateinit var pokemonAdapter: PokemonAdapter
-    @Inject lateinit var mainPresenter: MainPresenter
+    @Inject lateinit var mPokemonPresenter: PokemonPresenter
 
     companion object {
         private val POKEMON_COUNT = 20
@@ -26,13 +26,13 @@ class MainActivity : BaseActivity(), MainMvpView, PokemonAdapter.ClickListener, 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityComponent().inject(this)
-        mainPresenter.attachView(this)
+        mPokemonPresenter.attachView(this)
 
         setSupportActionBar(main_toolbar)
         swipeToRefresh?.apply {
             setProgressBackgroundColorSchemeResource(R.color.primary)
             setColorSchemeResources(R.color.white)
-            setOnRefreshListener { mainPresenter.getPokemon(POKEMON_COUNT) }
+            setOnRefreshListener { mPokemonPresenter.getPokemon(POKEMON_COUNT) }
         }
 
         pokemonAdapter.setClickListener(this)
@@ -43,14 +43,14 @@ class MainActivity : BaseActivity(), MainMvpView, PokemonAdapter.ClickListener, 
 
         viewError?.setErrorListener(this)
 
-        mainPresenter.getPokemon(POKEMON_COUNT)
+        mPokemonPresenter.getPokemon(POKEMON_COUNT)
     }
 
     override fun layoutId() = R.layout.activity_main
 
     override fun onDestroy() {
         super.onDestroy()
-        mainPresenter.detachView()
+        mPokemonPresenter.detachView()
     }
 
     override fun showPokemon(pokemon: List<String>) {
@@ -92,7 +92,7 @@ class MainActivity : BaseActivity(), MainMvpView, PokemonAdapter.ClickListener, 
     }
 
     override fun onReloadData() {
-        mainPresenter.getPokemon(POKEMON_COUNT)
+        mPokemonPresenter.getPokemon(POKEMON_COUNT)
     }
 
 }

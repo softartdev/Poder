@@ -20,7 +20,7 @@ class PokemonActivity(override val layout: Int = R.layout.activity_pokemon) : Ba
     @Inject lateinit var mPokemonPresenter: PokemonPresenter
 
     companion object {
-        private val POKEMON_COUNT = 20
+        val POKEMON_COUNT = 20
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

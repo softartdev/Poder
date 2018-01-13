@@ -2,6 +2,7 @@ package com.softartdev.poder.injection.component
 
 import com.softartdev.poder.injection.PerFragment
 import com.softartdev.poder.injection.module.FragmentModule
+import com.softartdev.poder.ui.main.pokemon.PokemonFragment
 import dagger.Subcomponent
 
 /**
@@ -9,4 +10,6 @@ import dagger.Subcomponent
  */
 @PerFragment
 @Subcomponent(modules = [FragmentModule::class])
-interface FragmentComponent
+interface FragmentComponent {
+    fun inject(pokemonFragment: PokemonFragment)
+}

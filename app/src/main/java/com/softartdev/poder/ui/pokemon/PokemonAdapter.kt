@@ -8,8 +8,10 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.softartdev.poder.R
+import com.softartdev.poder.injection.ConfigPersistent
 import javax.inject.Inject
 
+@ConfigPersistent
 class PokemonAdapter @Inject
 constructor() : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
 
@@ -17,7 +19,7 @@ constructor() : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
     private var clickListener: ClickListener? = null
 
     init {
-        pokemonsList = emptyList<String>()
+        pokemonsList = emptyList()
     }
 
     fun setPokemon(pokemons: List<String>) {
@@ -50,7 +52,7 @@ constructor() : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
 
     inner class PokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        lateinit var selectedPokemon: String
+        private lateinit var selectedPokemon: String
 
         @BindView(R.id.pokemon_name)
         @JvmField var pokemonName: TextView? = null

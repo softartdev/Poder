@@ -16,14 +16,6 @@ Created using [Android Starters](http://androidstarters.com/)
 - [Robolectric](http://robolectric.org/) for framework specific unit tests
 - [Mockito](http://mockito.org/)
 
-## Create new project using yeoman [generator-kotlin-android](https://github.com/androidstarters/generator-kotlin-android)
-```bash
-npm install -g yo
-npm install -g generator-kotlin-android
-mkdir NewApp && cd $_
-yo kotlin-android
-```
-
 ## Building
 
 To build, install and run a debug version, run this from the root of the project:

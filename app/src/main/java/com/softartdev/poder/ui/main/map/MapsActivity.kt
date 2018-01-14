@@ -67,7 +67,7 @@ class MapsActivity(override val layout: Int = R.layout.activity_maps_sample) : B
 
     private fun showRepeatableErrorWithSettings() {
         AlertDialog.Builder(this)
-                .setMessage(R.string.rationale_accounts_permission)
+                .setMessage(R.string.rationale_location_permission)
                 .setNegativeButton(R.string.dialog_action_cancel, this)
                 .setPositiveButton(R.string.retry, this)
                 .setNeutralButton(R.string.settings, this)
@@ -88,7 +88,7 @@ class MapsActivity(override val layout: Int = R.layout.activity_maps_sample) : B
             DialogInterface.BUTTON_NEUTRAL -> {
                 dialog.cancel()
                 val appSettingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + packageName))
-                startActivityForResult(appSettingsIntent, REQUEST_PERMISSION_GET_ACCOUNTS)
+                startActivityForResult(appSettingsIntent, REQUEST_PERMISSION_LOCATION)
             }
         }
     }
@@ -96,11 +96,11 @@ class MapsActivity(override val layout: Int = R.layout.activity_maps_sample) : B
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            REQUEST_PERMISSION_GET_ACCOUNTS -> showCurrentLocation()
+            REQUEST_PERMISSION_LOCATION -> showCurrentLocation()
         }
     }
 
     companion object {
-        internal val REQUEST_PERMISSION_GET_ACCOUNTS = 1003
+        internal val REQUEST_PERMISSION_LOCATION = 1003
     }
 }

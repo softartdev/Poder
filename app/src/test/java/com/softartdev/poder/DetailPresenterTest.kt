@@ -4,8 +4,8 @@ import com.nhaarman.mockito_kotlin.*
 import com.softartdev.poder.common.TestDataFactory
 import com.softartdev.poder.data.DataManager
 import com.softartdev.poder.data.model.Pokemon
-import com.softartdev.poder.features.detail.DetailMvpView
-import com.softartdev.poder.features.detail.DetailPresenter
+import com.softartdev.poder.ui.detail.DetailMvpView
+import com.softartdev.poder.ui.detail.DetailPresenter
 import com.softartdev.poder.util.RxSchedulersOverrideRule
 import io.reactivex.Single
 import org.junit.After

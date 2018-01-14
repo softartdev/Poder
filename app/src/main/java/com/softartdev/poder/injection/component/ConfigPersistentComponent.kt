@@ -1,8 +1,8 @@
 package com.softartdev.poder.injection.component
 
 import dagger.Component
-import com.softartdev.poder.features.base.BaseActivity
-import com.softartdev.poder.features.base.BaseFragment
+import com.softartdev.poder.ui.base.BaseActivity
+import com.softartdev.poder.ui.base.BaseFragment
 import com.softartdev.poder.injection.ConfigPersistent
 import com.softartdev.poder.injection.module.ActivityModule
 import com.softartdev.poder.injection.module.FragmentModule

@@ -43,7 +43,8 @@ ext {
             recyclerView     : "com.android.support:recyclerview-v7:$versions.support",
             supportAnnotation: "com.android.support:support-annotations:$versions.support",
             gridLayout       : "com.android.support:gridlayout-v7:$versions.support",
-            multiDex         : "com.android.support:multidex:$versions.multiDex"
+            multiDex         : "com.android.support:multidex:$versions.multiDex",
+            constraintLayout : "com.android.support.constraint:constraint-layout:1.0.2"
     ]
 
     rxJava = [
@@ -72,14 +73,15 @@ ext {
 
     googlePlay = [
             maps             : "com.google.android.gms:play-services-maps:$versions.firebase",
+            location         : "com.google.android.gms:play-services-location:$versions.firebase",
             crash            : "com.google.firebase:firebase-crash:$versions.firebase",
             firebaseCore     : "com.google.firebase:firebase-core:$versions.firebase",
             firebaseMessaging: "com.google.firebase:firebase-messaging:$versions.firebase"
     ]
+
     onlyDebug = [
             chuck   : "com.readystatesoftware.chuck:library:1.1.0"
     ]
-
     onlyRelease = [
             chuckNoOp       : 'com.readystatesoftware.chuck:library-no-op:1.1.0',
             sherlockNoOp    : 'com.github.ajitsing:sherlock-no-op:1.0.4@aar'

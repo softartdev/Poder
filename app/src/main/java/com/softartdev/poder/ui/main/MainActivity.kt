@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         main_bottom_navigation_view.setOnNavigationItemSelectedListener(MainNavigation(supportFragmentManager))
         if (savedInstanceState == null) {
-            main_bottom_navigation_view.selectedItemId = R.id.navigation_map
+            main_bottom_navigation_view.selectedItemId = R.id.navigation_downloads
         }
     }
 

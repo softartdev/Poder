@@ -73,6 +73,7 @@ ext {
 
     googlePlay = [
             maps             : "com.google.android.gms:play-services-maps:$versions.firebase",
+            location         : "com.google.android.gms:play-services-location:$versions.firebase",
             crash            : "com.google.firebase:firebase-crash:$versions.firebase",
             firebaseCore     : "com.google.firebase:firebase-core:$versions.firebase",
             firebaseMessaging: "com.google.firebase:firebase-messaging:$versions.firebase"

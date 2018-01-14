@@ -2,7 +2,7 @@
     <string name="app_name">Poder</string>
 
     <string name="dialog_action_ok">OK</string>
-    <!--<string name="dialog_action_cancel">Cancel</string>-->
+    <string name="dialog_action_cancel">Cancel</string>
     <string name="dialog_error_title">Sorry</string>
 
     <!-- Detail Activity -->
@@ -21,4 +21,7 @@
     <string name="title_downloads">Downloads</string>
     <string name="loading">Loading</string>
     <string name="please_wait">Please wait…</string>
+    <string name="rationale_accounts_permission">This app needs to access your location. (If permission request not showing here after retries, check it on system settings for this app.)</string>
+    <string name="retry">Retry</string>
+    <string name="settings">Settings</string>
 </resources>

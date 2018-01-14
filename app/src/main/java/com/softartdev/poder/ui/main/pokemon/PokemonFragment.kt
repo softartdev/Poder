@@ -12,6 +12,7 @@ import com.softartdev.poder.ui.pokemon.PokemonActivity
 import com.softartdev.poder.ui.pokemon.PokemonAdapter
 import com.softartdev.poder.ui.pokemon.PokemonMvpView
 import com.softartdev.poder.ui.pokemon.PokemonPresenter
+import com.softartdev.poder.util.gone
 import com.softartdev.poder.util.visible
 import kotlinx.android.synthetic.main.fragment_pokemon.*
 import timber.log.Timber
@@ -77,6 +78,7 @@ class PokemonFragment : BaseFragment(), PokemonMvpView, PokemonAdapter.ClickList
     }
 
     override fun onReloadData() {
+        pokemon_error_view?.gone()
         pokemonPresenter.getPokemon(PokemonActivity.POKEMON_COUNT)
     }
 

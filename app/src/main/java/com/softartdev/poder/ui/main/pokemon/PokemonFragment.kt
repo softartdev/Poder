@@ -29,6 +29,8 @@ class PokemonFragment : BaseFragment(), PokemonMvpView, PokemonAdapter.ClickList
         pokemonAdapter.setClickListener(this)
     }
 
+    override fun layoutId() = R.layout.fragment_pokemon
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         pokemon_swipe_refresh?.apply {
             setProgressBackgroundColorSchemeResource(R.color.primary)
@@ -49,8 +51,6 @@ class PokemonFragment : BaseFragment(), PokemonMvpView, PokemonAdapter.ClickList
             pokemonPresenter.getPokemon(PokemonActivity.POKEMON_COUNT)
         }
     }
-
-    override fun layoutId() = R.layout.fragment_pokemon
 
     override fun showPokemon(pokemon: List<String>) {
         pokemonAdapter.apply {

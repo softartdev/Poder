@@ -4,10 +4,30 @@
              android:layout_height="match_parent"
              tools:context="com.softartdev.poder.ui.main.downloads.DownloadsFragment">
 
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/downloads_swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/downloads_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/item_download"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <com.softartdev.poder.ui.common.ErrorView
+        android:id="@+id/downloads_error_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <com.softartdev.poder.ui.common.ProgressView
+        android:id="@+id/downloads_progress_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/title_downloads"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+        android:visibility="gone"/>
 
 </FrameLayout>

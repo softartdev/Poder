@@ -1,6 +1,7 @@
 package com.softartdev.poder.ui.main.podcasts
 
 import android.os.Bundle
+import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -52,6 +53,13 @@ class PodcastsFragment : BaseFragment(), PodcastsView, PodcastsAdapter.ClickList
         }
     }
 
+    override fun showPodcasts(podcasts: List<MediaBrowserCompat.MediaItem>) {
+        podcastsAdapter.apply {
+            mediaList = podcasts
+            notifyDataSetChanged()
+        }
+    }
+
     override fun onMediaIdClick(mediaId: String) {
         podcastsPresenter.play(mediaId)
         activity?.let { MediaControllerCompat.getMediaController(it).transportControls.playFromMediaId(mediaId, null) }
@@ -66,4 +74,8 @@ class PodcastsFragment : BaseFragment(), PodcastsView, PodcastsAdapter.ClickList
         podcastsPresenter.podcasts()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        podcastsPresenter.detachView()
+    }
 }

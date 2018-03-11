@@ -1,7 +1,7 @@
 package com.softartdev.poder.ui.main
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.softartdev.poder.R
 import kotlinx.android.synthetic.main.activity_main.*
 

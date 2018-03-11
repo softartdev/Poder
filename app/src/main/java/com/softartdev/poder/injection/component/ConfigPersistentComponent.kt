@@ -1,11 +1,11 @@
 package com.softartdev.poder.injection.component
 
-import dagger.Component
-import com.softartdev.poder.ui.base.BaseActivity
-import com.softartdev.poder.ui.base.BaseFragment
 import com.softartdev.poder.injection.ConfigPersistent
 import com.softartdev.poder.injection.module.ActivityModule
 import com.softartdev.poder.injection.module.FragmentModule
+import com.softartdev.poder.ui.base.BaseActivity
+import com.softartdev.poder.ui.base.BaseFragment
+import dagger.Component
 
 /**
  * A dagger component that will live during the lifecycle of an Activity or Fragment but it won't

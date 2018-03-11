@@ -153,6 +153,11 @@ class DownloadsFragment : BaseFragment(), DownloadsView, DownloadsAdapter.ClickL
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        downloadsPresenter.detachView()
+    }
+
     companion object {
         internal const val REQUEST_PERMISSION_EXTERNAL_STORAGE = 1004
     }

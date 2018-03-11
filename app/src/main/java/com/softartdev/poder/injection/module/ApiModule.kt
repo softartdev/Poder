@@ -1,8 +1,8 @@
 package com.softartdev.poder.injection.module
 
+import com.softartdev.poder.data.remote.PokemonApi
 import dagger.Module
 import dagger.Provides
-import com.softartdev.poder.data.remote.PokemonApi
 import retrofit2.Retrofit
 import javax.inject.Singleton
 

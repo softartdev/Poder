@@ -2,10 +2,9 @@ package com.softartdev.poder.injection.module
 
 import android.app.Activity
 import android.content.Context
-
+import com.softartdev.poder.injection.ActivityContext
 import dagger.Module
 import dagger.Provides
-import com.softartdev.poder.injection.ActivityContext
 
 @Module
 class ActivityModule(private val activity: Activity) {

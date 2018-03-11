@@ -7,6 +7,7 @@ import android.view.MenuItem
 import com.softartdev.poder.R
 import com.softartdev.poder.ui.main.downloads.DownloadsFragment
 import com.softartdev.poder.ui.main.map.MapFragment
+import com.softartdev.poder.ui.main.podcasts.PodcastsFragment
 import com.softartdev.poder.ui.main.pokemon.PokemonFragment
 
 class MainNavigation(private var fragmentManager: FragmentManager) : BottomNavigationView.OnNavigationItemSelectedListener {
@@ -21,6 +22,7 @@ class MainNavigation(private var fragmentManager: FragmentManager) : BottomNavig
             R.id.navigation_pokemon -> showSelectedFragment(POKEMON_TAG)
             R.id.navigation_map -> showSelectedFragment(MAP_TAG)
             R.id.navigation_downloads -> showSelectedFragment(DOWNLOADS_TAG)
+            R.id.navigation_podcasts -> showSelectedFragment(PODCASTS_TAG)
         }
     }
 
@@ -31,10 +33,12 @@ class MainNavigation(private var fragmentManager: FragmentManager) : BottomNavig
             fragmentManager.beginTransaction().show(selectedFragment).commit()
         } else {
             //if the fragment does not exist, add it to fragment manager.
-            when (tag) {
-                POKEMON_TAG -> selectedFragment = PokemonFragment()
-                MAP_TAG -> selectedFragment = MapFragment()
-                DOWNLOADS_TAG -> selectedFragment = DownloadsFragment()
+            selectedFragment = when (tag) {
+                POKEMON_TAG -> PokemonFragment()
+                MAP_TAG -> MapFragment()
+                DOWNLOADS_TAG -> DownloadsFragment()
+                PODCASTS_TAG -> PodcastsFragment()
+                else -> PokemonFragment()
             }
             fragmentManager.beginTransaction().add(R.id.main_frame_layout, selectedFragment, tag).commit()
         }
@@ -56,9 +60,10 @@ class MainNavigation(private var fragmentManager: FragmentManager) : BottomNavig
     }
 
     companion object {
-        private val POKEMON_TAG = "pokemon_tag"
-        private val MAP_TAG = "map_tag"
-        private val DOWNLOADS_TAG = "downloads_tag"
-        private val TAGS = arrayOf(POKEMON_TAG, MAP_TAG, DOWNLOADS_TAG)
+        private const val POKEMON_TAG = "pokemon_tag"
+        private const val MAP_TAG = "map_tag"
+        private const val DOWNLOADS_TAG = "downloads_tag"
+        private const val PODCASTS_TAG = "podcasts_tag"
+        private val TAGS = arrayOf(POKEMON_TAG, MAP_TAG, DOWNLOADS_TAG, PODCASTS_TAG)
     }
 }

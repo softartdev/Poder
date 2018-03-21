@@ -109,7 +109,6 @@ dependencies {
     implementation rxJavaLibs
     implementation otherLibs
 
-    implementation 'com.android.support:support-v4:27.1.0'
     debugImplementation debugLibs
     releaseImplementation releaseLibs
 

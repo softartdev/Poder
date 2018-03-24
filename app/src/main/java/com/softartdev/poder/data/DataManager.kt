@@ -114,7 +114,7 @@ constructor(private val pokemonApi: PokemonApi, @ApplicationContext private val 
             val duration: Long = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION).toLongOrNull() ?: 0
 
             val embedded: Bitmap? = retriever.embeddedPicture?.let { BitmapFactory.decodeByteArray(it, 0, it.size) }
-            val bitmap: Bitmap? = Bitmap.createScaledBitmap(embedded, defaultArtwork.width, defaultArtwork.height, false)
+            val bitmap: Bitmap? = embedded?.let { Bitmap.createScaledBitmap(it, defaultArtwork.width, defaultArtwork.height, false) }
 
             retriever.release()
             with(MediaMetadataCompat.Builder()) {

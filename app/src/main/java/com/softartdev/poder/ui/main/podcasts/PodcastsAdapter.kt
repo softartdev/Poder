@@ -2,7 +2,6 @@ package com.softartdev.poder.ui.main.podcasts
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
@@ -25,13 +24,15 @@ class PodcastsAdapter @Inject
 constructor(@ApplicationContext val context: Context) : RecyclerView.Adapter<PodcastsAdapter.MediaItemsViewHolder>() {
     var mediaList: List<MediaBrowserCompat.MediaItem> = emptyList()
     var clickListener: ClickListener? = null
-    private val defaultAlbumArt: Bitmap? = ViewUtil.getBitmapFromVectorDrawable(context, R.drawable.ic_podcasts_black_24dp)
+    //    private val defaultAlbumArt: Bitmap? = ViewUtil.getBitmapFromVectorDrawable(context, R.drawable.ic_podcasts_black_24dp)
     private val animation = ContextCompat.getDrawable(context, R.drawable.ic_equalizer_white_36dp) as AnimationDrawable
     private val colorStatePlaying = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.accent))
     var playbackMediaId: String = "METADATA_KEY_MEDIA_ID"
     var playbackState: Int = PlaybackStateCompat.STATE_NONE
 
-    init { DrawableCompat.setTintList(animation, colorStatePlaying) }
+    init {
+        DrawableCompat.setTintList(animation, colorStatePlaying)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediaItemsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_podcast, parent, false)
@@ -69,7 +70,8 @@ constructor(@ApplicationContext val context: Context) : RecyclerView.Adapter<Pod
                     PlaybackStateCompat.STATE_PAUSED -> animation.stop()
                 }
             } else {
-                itemView.item_podcast_icon_image_view.setImageBitmap(mediaDescriptionCompat.iconBitmap ?: defaultAlbumArt)
+                val iconBitmap = mediaDescriptionCompat.iconBitmap ?: ViewUtil.getDefaultAlbumArt(context)
+                itemView.item_podcast_icon_image_view.setImageBitmap(iconBitmap)
             }
         }
     }

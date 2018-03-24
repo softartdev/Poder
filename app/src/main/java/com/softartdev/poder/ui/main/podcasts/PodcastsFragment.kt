@@ -62,7 +62,7 @@ class PodcastsFragment : BaseFragment(), PodcastsView, PodcastsAdapter.ClickList
 
     override fun onMediaIdClick(mediaId: String) {
         podcastsPresenter.play(mediaId)
-        activity?.let { MediaControllerCompat.getMediaController(it).transportControls.playFromMediaId(mediaId, null) }
+        activity?.let { MediaControllerCompat.getMediaController(it)?.transportControls?.playFromMediaId(mediaId, null) }
     }
 
     override fun showError(throwable: Throwable) {

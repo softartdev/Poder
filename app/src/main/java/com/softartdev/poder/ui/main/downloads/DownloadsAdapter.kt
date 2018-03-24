@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.softartdev.poder.R
 import com.softartdev.poder.injection.ConfigPersistent
+import com.softartdev.poder.util.ViewUtil
 import kotlinx.android.synthetic.main.item_download.view.*
 import java.io.File
 import javax.inject.Inject
@@ -14,12 +15,8 @@ import javax.inject.Inject
 @ConfigPersistent
 class DownloadsAdapter @Inject
 constructor() : RecyclerView.Adapter<DownloadsAdapter.DownloadsViewHolder>() {
-    private var fileList: List<File>
+    private var fileList: List<File> = emptyList()
     private var clickListener: ClickListener? = null
-
-    init {
-        fileList = emptyList()
-    }
 
     fun setFiles(files: List<File>) {
         this.fileList = files
@@ -46,19 +43,14 @@ constructor() : RecyclerView.Adapter<DownloadsAdapter.DownloadsViewHolder>() {
     }
 
     inner class DownloadsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private lateinit var selectedFile: File
-
-        init {
-            itemView.setOnClickListener { clickListener?.onDownloadItemClick(selectedFile) }
-        }
-
         fun bind(file: File) {
-            selectedFile = file
-            @DrawableRes val drawableLeft = if (selectedFile.isDirectory) R.drawable.ic_folder_black_24dp else R.drawable.ic_insert_drive_file_black_24dp
+            @DrawableRes val drawableLeftRes = if (file.isDirectory) R.drawable.ic_folder_black_24dp else R.drawable.ic_insert_drive_file_black_24dp
+            val drawableLeft = ViewUtil.getDrawableFromVector(itemView.context, drawableLeftRes)
             itemView.item_download_file_name_text_view?.apply {
-                text = selectedFile.name
-                setCompoundDrawablesWithIntrinsicBounds(drawableLeft, 0, 0, 0)
+                text = file.name
+                setCompoundDrawablesWithIntrinsicBounds(drawableLeft, null, null, null)
             }
+            itemView.setOnClickListener { clickListener?.onDownloadItemClick(file) }
         }
     }
 

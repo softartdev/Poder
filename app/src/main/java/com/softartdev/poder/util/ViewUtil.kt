@@ -12,17 +12,7 @@ import android.support.v7.app.AppCompatDelegate
 import com.softartdev.poder.R
 
 object ViewUtil {
-/*
-    fun getBitmapFromVectorDrawable(drawable: Drawable): Bitmap {
-        val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        drawable.apply {
-            setBounds(0, 0, canvas.width, canvas.height)
-            draw(canvas)
-        }
-        return bitmap
-    }
-*/
+
     fun getDrawableFromVector(context: Context, drawableRes: Int): Drawable? = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         ContextCompat.getDrawable(context, drawableRes)?.let { DrawableCompat.wrap(it).mutate() }

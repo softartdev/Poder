@@ -15,7 +15,6 @@ import android.view.ViewGroup
 import com.softartdev.poder.R
 import com.softartdev.poder.injection.ApplicationContext
 import com.softartdev.poder.injection.ConfigPersistent
-import com.softartdev.poder.util.ViewUtil
 import kotlinx.android.synthetic.main.item_podcast.view.*
 import javax.inject.Inject
 
@@ -24,7 +23,6 @@ class PodcastsAdapter @Inject
 constructor(@ApplicationContext val context: Context) : RecyclerView.Adapter<PodcastsAdapter.MediaItemsViewHolder>() {
     var mediaList: List<MediaBrowserCompat.MediaItem> = emptyList()
     var clickListener: ClickListener? = null
-    //    private val defaultAlbumArt: Bitmap? = ViewUtil.getBitmapFromVectorDrawable(context, R.drawable.ic_podcasts_black_24dp)
     private val animation = ContextCompat.getDrawable(context, R.drawable.ic_equalizer_white_36dp) as AnimationDrawable
     private val colorStatePlaying = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.accent))
     var playbackMediaId: String = "METADATA_KEY_MEDIA_ID"
@@ -51,28 +49,23 @@ constructor(@ApplicationContext val context: Context) : RecyclerView.Adapter<Pod
     }
 
     inner class MediaItemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private lateinit var selectedMediaId: String
-
-        init {
-            itemView.setOnClickListener { clickListener?.onMediaIdClick(selectedMediaId) }
-        }
-
         fun bind(mediaDescriptionCompat: MediaDescriptionCompat) {
-            selectedMediaId = mediaDescriptionCompat.mediaId!!
-
             itemView.item_podcast_title_text_view.text = mediaDescriptionCompat.title
             itemView.item_podcast_subtitle_text_view.text = mediaDescriptionCompat.subtitle
 
-            if (selectedMediaId.endsWith(playbackMediaId)) {
-                itemView.item_podcast_icon_image_view.setImageDrawable(animation)
-                animation.start()
-                when (playbackState) {
-                    PlaybackStateCompat.STATE_PAUSED -> animation.stop()
+            mediaDescriptionCompat.mediaId?.apply {
+                if (this.endsWith(playbackMediaId)) {
+                    itemView.item_podcast_icon_image_view.setImageDrawable(animation)
+                    animation.start()
+                    when (playbackState) {
+                        PlaybackStateCompat.STATE_PAUSED -> animation.stop()
+                    }
+                } else {
+                    mediaDescriptionCompat.iconBitmap?.let { itemView.item_podcast_icon_image_view.setImageBitmap(it) }
                 }
-            } else {
-                val iconBitmap = mediaDescriptionCompat.iconBitmap ?: ViewUtil.getDefaultAlbumArt(context)
-                itemView.item_podcast_icon_image_view.setImageBitmap(iconBitmap)
+                itemView.setOnClickListener { clickListener?.onMediaIdClick(this) }
             }
         }
     }
+
 }

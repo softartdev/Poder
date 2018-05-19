@@ -2,11 +2,11 @@ package com.softartdev.poder.injection.module
 
 import android.app.Application
 import android.content.Context
+import com.softartdev.poder.injection.ApplicationContext
 import dagger.Module
 import dagger.Provides
-import com.softartdev.poder.injection.ApplicationContext
 
-@Module(includes = arrayOf(ApiModule::class))
+@Module(includes = [ApiModule::class, MediaModule::class])
 class AppModule(private val application: Application) {
 
     @Provides

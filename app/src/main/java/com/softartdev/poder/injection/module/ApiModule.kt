@@ -1,15 +1,15 @@
 package com.softartdev.poder.injection.module
 
+import com.softartdev.poder.data.remote.PokemonApi
 import dagger.Module
 import dagger.Provides
-import com.softartdev.poder.data.remote.PokemonApi
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
 /**
  * Created by shivam on 8/7/17.
  */
-@Module(includes = arrayOf(NetworkModule::class))
+@Module(includes = [NetworkModule::class])
 class ApiModule {
 
     @Provides

@@ -7,7 +7,7 @@ apply plugin: 'com.github.ben-manes.versions'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.0'
+    buildToolsVersion '27.0.3'
 
     dexOptions {
         maxProcessCount 4
@@ -28,6 +28,7 @@ android {
                 "\"${PokeapiApiUrl}\"")
 
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -100,7 +101,7 @@ apply from: 'dependencies.gradle'
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation supportLibs
     implementation googlePlayLibs
@@ -114,7 +115,7 @@ dependencies {
     implementation(glideOkhttp) {
         exclude group: 'glide-parent'
     }
-    
+
     debugImplementation(sherlock) {
         transitive = true
     }

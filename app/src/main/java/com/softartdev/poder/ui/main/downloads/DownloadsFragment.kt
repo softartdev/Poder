@@ -49,7 +49,6 @@ class DownloadsFragment : BaseFragment(), DownloadsView, DownloadsAdapter.ClickL
             setOnRefreshListener { showDownloadsIfPermissionGranted() }
         }
 
-        downloadsAdapter.setClickListener(this)
         downloads_recycler_view?.apply {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(downloads_recycler_view.context, DividerItemDecoration.VERTICAL))
@@ -154,7 +153,12 @@ class DownloadsFragment : BaseFragment(), DownloadsView, DownloadsAdapter.ClickL
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        downloadsPresenter.detachView()
+    }
+
     companion object {
-        internal val REQUEST_PERMISSION_EXTERNAL_STORAGE = 1004
+        internal const val REQUEST_PERMISSION_EXTERNAL_STORAGE = 1004
     }
 }

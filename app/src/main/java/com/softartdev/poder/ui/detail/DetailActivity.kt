@@ -24,7 +24,7 @@ class DetailActivity(override val layout: Int = R.layout.activity_detail) : Base
     private var pokemonName: String? = null
 
     companion object {
-        val EXTRA_POKEMON_NAME = "EXTRA_POKEMON_NAME"
+        const val EXTRA_POKEMON_NAME = "EXTRA_POKEMON_NAME"
 
         fun getStartIntent(context: Context, pokemonName: String): Intent {
             val intent = Intent(context, DetailActivity::class.java)

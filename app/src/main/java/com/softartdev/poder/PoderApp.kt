@@ -7,6 +7,7 @@ import com.singhajit.sherlock.core.Sherlock
 import com.softartdev.poder.injection.component.AppComponent
 import com.softartdev.poder.injection.component.DaggerAppComponent
 import com.softartdev.poder.injection.module.AppModule
+import com.softartdev.poder.injection.module.MediaModule
 import com.softartdev.poder.injection.module.NetworkModule
 import com.squareup.leakcanary.LeakCanary
 import com.tspoon.traceur.Traceur
@@ -34,7 +35,8 @@ class PoderApp : MultiDexApplication() {
             if (appComponent == null) {
                 appComponent = DaggerAppComponent.builder()
                         .appModule(AppModule(this))
-                        .networkModule(NetworkModule(this))
+                        .networkModule(NetworkModule())
+                        .mediaModule(MediaModule())
                         .build()
             }
             return appComponent as AppComponent

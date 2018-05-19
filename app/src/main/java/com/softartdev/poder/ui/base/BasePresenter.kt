@@ -1,7 +1,7 @@
 package com.softartdev.poder.ui.base
 
-import rx.Subscription
-import rx.subscriptions.CompositeSubscription
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 /**
  * Base class that implements the Presenter interface and provides a base implementation for
@@ -12,7 +12,7 @@ open class BasePresenter<T : MvpView> : Presenter<T> {
 
     var mvpView: T? = null
         private set
-    private val compositeSubscription = CompositeSubscription()
+    private val compositeDisposable = CompositeDisposable()
 
     override fun attachView(mvpView: T) {
         this.mvpView = mvpView
@@ -20,8 +20,8 @@ open class BasePresenter<T : MvpView> : Presenter<T> {
 
     override fun detachView() {
         mvpView = null
-        if (!compositeSubscription.isUnsubscribed) {
-            compositeSubscription.clear()
+        if (!compositeDisposable.isDisposed) {
+            compositeDisposable.dispose()
         }
     }
 
@@ -32,8 +32,8 @@ open class BasePresenter<T : MvpView> : Presenter<T> {
         if (!isViewAttached) throw MvpViewNotAttachedException()
     }
 
-    fun addSubscription(subs: Subscription) {
-        compositeSubscription.add(subs)
+    fun addDisposable(disposable: Disposable) {
+        compositeDisposable.add(disposable)
     }
 
     private class MvpViewNotAttachedException internal constructor() : RuntimeException("Please call Presenter.attachView(MvpView) before" + " requesting data to the Presenter")

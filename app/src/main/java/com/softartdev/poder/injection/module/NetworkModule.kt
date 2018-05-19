@@ -4,6 +4,7 @@ import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.readystatesoftware.chuck.ChuckInterceptor
 import com.softartdev.poder.BuildConfig
+import com.softartdev.poder.injection.ApplicationContext
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -22,15 +23,13 @@ import javax.inject.Singleton
  */
 
 @Module
-class NetworkModule(private val context: Context) {
-
-    protected fun getBaseUrl() = BuildConfig.POKEAPI_API_URL
+class NetworkModule {
 
     @Provides
     @Singleton
     internal fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
             Retrofit.Builder()
-                    .baseUrl(getBaseUrl())
+                    .baseUrl(BuildConfig.POKEAPI_API_URL)
                     .client(okHttpClient)
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -60,7 +59,7 @@ class NetworkModule(private val context: Context) {
 
     @Provides
     @Singleton
-    internal fun provideChuckInterceptor(): ChuckInterceptor = ChuckInterceptor(context)
+    internal fun provideChuckInterceptor(@ApplicationContext context: Context): ChuckInterceptor = ChuckInterceptor(context)
 
     @Provides
     @Singleton

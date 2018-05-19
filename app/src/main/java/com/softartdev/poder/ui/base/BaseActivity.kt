@@ -13,6 +13,7 @@ import com.softartdev.poder.injection.module.ActivityModule
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicLong
 
+
 /**
  * Abstract activity that every other Activity in this application must implement. It provides the
  * following functionality:
@@ -23,12 +24,11 @@ import java.util.concurrent.atomic.AtomicLong
  * - Handles signing out when an authentication error event is received.
  */
 abstract class BaseActivity : AppCompatActivity() {
-
     private var activityComponent: ActivityComponent? = null
     private var activityId = 0L
 
     companion object {
-        private val KEY_ACTIVITY_ID = "KEY_ACTIVITY_ID"
+        private const val KEY_ACTIVITY_ID = "KEY_ACTIVITY_ID"
         private val NEXT_ID = AtomicLong(0)
         private val componentsArray = LongSparseArray<ConfigPersistentComponent>()
     }

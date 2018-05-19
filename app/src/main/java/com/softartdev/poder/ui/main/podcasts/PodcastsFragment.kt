@@ -29,7 +29,7 @@ class PodcastsFragment : BaseFragment(), PodcastsView, PodcastsAdapter.ClickList
         podcasts_swipe_refresh?.apply {
             setProgressBackgroundColorSchemeResource(R.color.primary)
             setColorSchemeResources(R.color.white)
-            setOnRefreshListener { podcastsPresenter.podcasts() }
+            setOnRefreshListener { podcastsPresenter.refreshPodcasts() }
         }
 
         podcasts_recycler_view?.apply {
@@ -62,7 +62,7 @@ class PodcastsFragment : BaseFragment(), PodcastsView, PodcastsAdapter.ClickList
 
     override fun onMediaIdClick(mediaId: String) {
         podcastsPresenter.play(mediaId)
-        activity?.let { MediaControllerCompat.getMediaController(it).transportControls.playFromMediaId(mediaId, null) }
+        activity?.let { MediaControllerCompat.getMediaController(it)?.transportControls?.playFromMediaId(mediaId, null) }
     }
 
     override fun showError(throwable: Throwable) {
@@ -71,7 +71,7 @@ class PodcastsFragment : BaseFragment(), PodcastsView, PodcastsAdapter.ClickList
 
     override fun onReloadData() {
         podcasts_error_view?.visibility = View.GONE
-        podcastsPresenter.podcasts()
+        podcastsPresenter.refreshPodcasts()
     }
 
     override fun onDestroy() {

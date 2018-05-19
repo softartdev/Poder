@@ -1,10 +1,10 @@
 package com.softartdev.poder.ui.detail
 
 import com.softartdev.poder.data.DataManager
-import com.softartdev.poder.data.model.Pokemon
 import com.softartdev.poder.injection.ConfigPersistent
 import com.softartdev.poder.ui.base.BasePresenter
-import com.softartdev.poder.util.rx.scheduler.SchedulerUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @ConfigPersistent
@@ -14,8 +14,9 @@ constructor(private val dataManager: DataManager) : BasePresenter<DetailMvpView>
     fun getPokemon(name: String) {
         checkViewAttached()
         mvpView?.showProgress(true)
-        dataManager.getPokemon(name)
-                .compose<Pokemon>(SchedulerUtils.ioToMain<Pokemon>())
+        addDisposable(dataManager.getPokemon(name)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ pokemon ->
                     // It should be always checked if MvpView (Fragment or Activity) is attached.
                     // Calling showProgress() on a not-attached fragment will throw a NPE
@@ -32,6 +33,6 @@ constructor(private val dataManager: DataManager) : BasePresenter<DetailMvpView>
                         showProgress(false)
                         showError(throwable)
                     }
-                }
+                })
     }
 }

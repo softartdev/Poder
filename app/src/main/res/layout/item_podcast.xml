@@ -19,6 +19,7 @@
         app:layout_constraintEnd_toStartOf="@+id/item_podcast_vertical_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_podcasts_black_24dp"
         tools:ignore="ContentDescription"
         tools:src="@tools:sample/avatars" />
 

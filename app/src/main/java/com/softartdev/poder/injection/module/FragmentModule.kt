@@ -3,9 +3,9 @@ package com.softartdev.poder.injection.module
 import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import com.softartdev.poder.injection.ActivityContext
 import dagger.Module
 import dagger.Provides
-import com.softartdev.poder.injection.ActivityContext
 
 @Module
 class FragmentModule(private val fragment: Fragment) {

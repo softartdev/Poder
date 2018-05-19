@@ -3,6 +3,7 @@ package com.softartdev.poder.injection.component
 import com.softartdev.poder.injection.PerFragment
 import com.softartdev.poder.injection.module.FragmentModule
 import com.softartdev.poder.ui.main.downloads.DownloadsFragment
+import com.softartdev.poder.ui.main.podcasts.PodcastsFragment
 import com.softartdev.poder.ui.main.pokemon.PokemonFragment
 import dagger.Subcomponent
 
@@ -14,4 +15,5 @@ import dagger.Subcomponent
 interface FragmentComponent {
     fun inject(pokemonFragment: PokemonFragment)
     fun inject(downloadsFragment: DownloadsFragment)
+    fun inject(podcastsFragment: PodcastsFragment)
 }

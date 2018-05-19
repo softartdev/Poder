@@ -6,7 +6,7 @@ import com.softartdev.poder.injection.ApplicationContext
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = arrayOf(ApiModule::class))
+@Module(includes = [ApiModule::class])
 class AppModule(private val application: Application) {
 
     @Provides

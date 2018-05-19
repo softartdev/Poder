@@ -24,13 +24,11 @@ import javax.inject.Singleton
 @Module
 class NetworkModule(private val context: Context) {
 
-    protected fun getBaseUrl() = BuildConfig.POKEAPI_API_URL
-
     @Provides
     @Singleton
     internal fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
             Retrofit.Builder()
-                    .baseUrl(getBaseUrl())
+                    .baseUrl(BuildConfig.POKEAPI_API_URL)
                     .client(okHttpClient)
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

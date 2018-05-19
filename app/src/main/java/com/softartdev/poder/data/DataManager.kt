@@ -70,7 +70,7 @@ constructor(private val pokemonApi: PokemonApi, @ApplicationContext private val 
                 MediaStore.Audio.Media.IS_PODCAST,
                 null,
                 MediaStore.Audio.Media.TITLE + " ASC"
-        ) ?: throw IllegalStateException("Failed to retrieive music: cursor is null")
+        ) ?: throw IllegalStateException("Failed to retrieve music: cursor is null")
 
         val metadataList: MutableList<MediaMetadataCompat> = mutableListOf()
 

@@ -6,7 +6,7 @@ import com.softartdev.poder.injection.ApplicationContext
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [ApiModule::class])
+@Module(includes = [ApiModule::class, MediaModule::class])
 class AppModule(private val application: Application) {
 
     @Provides

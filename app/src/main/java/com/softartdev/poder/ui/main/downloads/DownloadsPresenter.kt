@@ -14,7 +14,7 @@ constructor(private val dataManager: DataManager) : BasePresenter<DownloadsView>
     fun downloads() {
         checkViewAttached()
         mvpView?.showProgress(true)
-        dataManager.getDownloads()
+        addDisposable(dataManager.getDownloads()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ files ->
@@ -24,7 +24,7 @@ constructor(private val dataManager: DataManager) : BasePresenter<DownloadsView>
                     throwable.printStackTrace()
                     mvpView?.showProgress(false)
                     mvpView?.showError(throwable)
-                }
+                })
     }
 
 }

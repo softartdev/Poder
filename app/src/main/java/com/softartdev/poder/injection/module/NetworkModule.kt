@@ -4,6 +4,7 @@ import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.readystatesoftware.chuck.ChuckInterceptor
 import com.softartdev.poder.BuildConfig
+import com.softartdev.poder.injection.ApplicationContext
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -22,7 +23,7 @@ import javax.inject.Singleton
  */
 
 @Module
-class NetworkModule(private val context: Context) {
+class NetworkModule {
 
     @Provides
     @Singleton
@@ -58,7 +59,7 @@ class NetworkModule(private val context: Context) {
 
     @Provides
     @Singleton
-    internal fun provideChuckInterceptor(): ChuckInterceptor = ChuckInterceptor(context)
+    internal fun provideChuckInterceptor(@ApplicationContext context: Context): ChuckInterceptor = ChuckInterceptor(context)
 
     @Provides
     @Singleton

@@ -14,7 +14,7 @@ constructor(private val dataManager: DataManager) : BasePresenter<PokemonMvpView
     fun getPokemon(limit: Int) {
         checkViewAttached()
         mvpView?.showProgress(true)
-        dataManager.getPokemonList(limit)
+        addDisposable(dataManager.getPokemonList(limit)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ pokemons ->
@@ -27,6 +27,6 @@ constructor(private val dataManager: DataManager) : BasePresenter<PokemonMvpView
                         showProgress(false)
                         showError(throwable)
                     }
-                }
+                })
     }
 }

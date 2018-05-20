@@ -50,11 +50,8 @@ class MediaPlaybackActivity(override val layout: Int = R.layout.activity_media_p
         media_play_button.requestFocus()
         media_play_button.setOnClickListener {
             MediaControllerCompat.getMediaController(this@MediaPlaybackActivity)?.let {
-                if (it.playbackState.state == PlaybackStateCompat.STATE_PLAYING) {
-                    it.transportControls.pause()
-                } else {
-                    it.transportControls.play()
-                }
+                val playing = it.playbackState.state == PlaybackStateCompat.STATE_PLAYING
+                it.transportControls.apply { if (playing) pause() else play() }
             }
         }
         media_next_button.setOnClickListener {
@@ -146,9 +143,7 @@ class MediaPlaybackActivity(override val layout: Int = R.layout.activity_media_p
             Timber.d("Received updated metadata: %s", metadata)
             updateTrackInfo()
         }
-        override fun onSessionDestroyed() {
-            Timber.d("Session destroyed. Need to fetch a new Media Session")
-        }
+        override fun onSessionDestroyed() = Timber.d("Session destroyed. Need to fetch a new Media Session")
     }
 
     private val connectionCallBack = object : MediaBrowserCompat.ConnectionCallback() {
@@ -162,13 +157,8 @@ class MediaPlaybackActivity(override val layout: Int = R.layout.activity_media_p
             setPauseButtonImage()
             updateTrackInfo()
         }
-        override fun onConnectionFailed() {
-            Timber.d("onConnectionFailed")
-        }
-        override fun onConnectionSuspended() {
-            Timber.d("onConnectionSuspended")
-            MediaControllerCompat.setMediaController(this@MediaPlaybackActivity, null)
-        }
+        override fun onConnectionFailed() = Timber.d("onConnectionFailed")
+        override fun onConnectionSuspended() = MediaControllerCompat.setMediaController(this@MediaPlaybackActivity, null)
     }
 
     private fun setShuffleButtonImage() {

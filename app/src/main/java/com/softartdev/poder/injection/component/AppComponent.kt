@@ -6,6 +6,7 @@ import com.softartdev.poder.data.DataManager
 import com.softartdev.poder.data.remote.PokemonApi
 import com.softartdev.poder.injection.ApplicationContext
 import com.softartdev.poder.injection.module.AppModule
+import com.softartdev.poder.media.MediaPlaybackService
 import dagger.Component
 import javax.inject.Singleton
 
@@ -21,4 +22,6 @@ interface AppComponent {
     fun dataManager(): DataManager
 
     fun pokemonApi(): PokemonApi
+
+    fun inject(mediaPlaybackService: MediaPlaybackService)
 }

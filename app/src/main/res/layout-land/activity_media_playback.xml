@@ -13,25 +13,9 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.35" />
 
-    <TextView
-        android:id="@+id/media_artist_name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:drawableLeft="@drawable/ic_artist_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/media_vertical_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/media_repeat_button"
-        tools:ignore="RtlHardcoded"
-        tools:text="Artist Name" />
-
-    <TextView
-        android:id="@+id/media_album_name_text_view"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/media_track_info_linear_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -39,29 +23,41 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:drawableLeft="@drawable/ic_album_black_24dp"
-        app:layout_constraintBottom_toTopOf="@+id/media_track_name_text_view"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/media_vertical_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/media_artist_name_text_view"
-        tools:ignore="RtlHardcoded"
-        tools:text="Album Name" />
+        app:layout_constraintTop_toBottomOf="@+id/media_repeat_button"
+        tools:ignore="RtlHardcoded">
 
-    <TextView
-        android:id="@+id/media_track_name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:drawableLeft="@drawable/ic_track_black_24dp"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/media_vertical_guideline"
-        tools:ignore="RtlHardcoded"
-        tools:text="Track Name" />
+        <TextView
+            android:id="@+id/media_artist_name_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_artist_black_24dp"
+            android:drawablePadding="@dimen/activity_horizontal_margin"
+            android:gravity="center_vertical"
+            tools:text="Artist Name" />
+
+        <TextView
+            android:id="@+id/media_album_name_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_album_black_24dp"
+            android:drawablePadding="@dimen/activity_horizontal_margin"
+            android:gravity="center_vertical"
+            tools:text="Album Name" />
+
+        <TextView
+            android:id="@+id/media_track_name_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_track_black_24dp"
+            android:drawablePadding="@dimen/activity_horizontal_margin"
+            android:gravity="center_vertical"
+            tools:text="Track Name" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/media_album_image_view"
@@ -104,7 +100,7 @@
         app:layout_constraintEnd_toStartOf="@+id/media_queue_button"
         app:layout_constraintStart_toEndOf="@+id/media_shuffle_button"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_repeat_black_24dp"
+        app:srcCompat="@drawable/ic_repeat_off_black_24dp"
         tools:ignore="ContentDescription" />
 
     <ImageButton
@@ -120,7 +116,7 @@
         tools:ignore="ContentDescription" />
 
     <SeekBar
-        android:id="@+id/seekBar2"
+        android:id="@+id/seekBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -167,7 +163,7 @@
         tools:ignore="ContentDescription" />
 
     <ImageButton
-        android:id="@+id/media_pause_button"
+        android:id="@+id/media_play_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"

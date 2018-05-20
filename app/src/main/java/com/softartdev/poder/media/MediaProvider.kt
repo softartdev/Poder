@@ -131,7 +131,7 @@ class MediaProvider(@ApplicationContext private val context: Context) {
     }
 
     companion object {
-        private const val UNKNOWN = "UNKNOWN"
+        const val UNKNOWN = "UNKNOWN"
         private const val CUSTOM_METADATA_TRACK_SOURCE = "__SOURCE__"
         private const val CATEGORY_SEPARATOR: Char = 31.toChar()
         private const val MEDIA_ID_MUSICS_BY_SONG = "__BY_SONG__" // parent id

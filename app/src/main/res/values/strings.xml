@@ -28,4 +28,12 @@
     <string name="unknown_artist_name">Unknown artist</string>
     <string name="unknown_album_name">Unknown album</string>
     <string name="error_loading_media">Error Loading Media</string>
+    <string name="notification_channel">Poder_Channel_ID</string>
+    <string name="notification_channel_description">Channel ID for Poder</string>
+    <string name="play_pause">play or pause</string>
+    <string name="play_item">Play item</string>
+    <string name="skip_previous">Skip to previous</string>
+    <string name="skip_next">Skip to next</string>
+    <string name="browse_musics_by_genre_subtitle">%1$s songs</string>
+    <string name="error_no_metadata">Unable to retrieve metadata.</string>
 </resources>

@@ -16,8 +16,6 @@
 
 package com.softartdev.poder.media
 
-import java.util.Arrays
-
 /**
  * Utility class to help on queue related tasks.
  */
@@ -28,8 +26,6 @@ object MediaIDHelper {
     const val MEDIA_ID_MUSICS_BY_ALBUM = "__BY_ALBUM__"
     const val MEDIA_ID_MUSICS_BY_SONG = "__BY_SONG__"
     const val MEDIA_ID_MUSICS_BY_PLAYLIST = "__BY_PLAYLIST__"
-    const val MEDIA_ID_MUSICS_BY_SEARCH = "__BY_SEARCH__"
-    const val MEDIA_ID_NOW_PLAYING = "__NOW_PLAYING__"
 
     private const val CATEGORY_SEPARATOR: Char = 31.toChar()
     private const val LEAF_SEPARATOR: Char = 30.toChar()
@@ -92,19 +88,5 @@ object MediaIDHelper {
             hierarchy[1]
         } else null
     }
-
-    fun getParentMediaID(mediaID: String): String {
-        val hierarchy = getHierarchy(mediaID)
-        if (!isBrowsable(mediaID)) {
-            return createMediaID(null, *hierarchy)
-        }
-        if (hierarchy.size <= 1) {
-            return MEDIA_ID_ROOT
-        }
-        val parentHierarchy = Arrays.copyOf(hierarchy, hierarchy.size - 1)
-        return createMediaID(null, *parentHierarchy)
-    }
-
-    private fun isBrowsable(mediaID: String): Boolean = mediaID.indexOf(LEAF_SEPARATOR) < 0
 
 }

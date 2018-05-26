@@ -6,5 +6,5 @@ import com.softartdev.poder.injection.component.AppComponent
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(ApplicationTestModule::class))
+@Component(modules = [ApplicationTestModule::class])
 interface TestComponent : AppComponent

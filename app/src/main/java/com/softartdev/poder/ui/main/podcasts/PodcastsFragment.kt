@@ -10,8 +10,8 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.softartdev.poder.R
-import com.softartdev.poder.media.MediaIDHelper
 import com.softartdev.poder.media.MediaPlaybackService
+import com.softartdev.poder.media.MediaPlaybackService.Companion.MEDIA_ID_PODCAST
 import com.softartdev.poder.ui.base.BaseFragment
 import com.softartdev.poder.ui.common.ErrorView
 import kotlinx.android.synthetic.main.fragment_podcasts.*
@@ -71,7 +71,7 @@ class PodcastsFragment : BaseFragment(), PodcastsView, PodcastsAdapter.ClickList
     private val connectionCallBack = object : MediaBrowserCompat.ConnectionCallback() {
         override fun onConnected() {
             Timber.d("onConnected")
-            mediaBrowserCompat?.subscribe(MediaIDHelper.MEDIA_ID_MUSICS_BY_SONG, subscriptionCallback)
+            mediaBrowserCompat?.subscribe(MEDIA_ID_PODCAST, subscriptionCallback)
             activity?.let { MediaControllerCompat.getMediaController(it)?.registerCallback(mediaControllerCallback) }
         }
         override fun onConnectionSuspended() {

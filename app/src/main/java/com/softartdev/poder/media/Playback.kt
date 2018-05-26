@@ -135,7 +135,8 @@ class Playback(private val mediaPlaybackService: MediaPlaybackService, private v
         } else {
             state = PlaybackState.STATE_STOPPED
             relaxResources(false) // release everything except MediaPlayer
-            val track = mediaProvider?.getMediaById(MediaIDHelper.extractMusicIDFromMediaID(item.description.mediaId))?.metadata
+            val podcastId = item.description.mediaId?.let { MediaUtils.removeMediaIdPrefix(it) }
+            val track = mediaProvider?.getMediaById(podcastId)?.metadata
             val source = track?.getString(MediaProvider.CUSTOM_METADATA_TRACK_SOURCE)
             try {
                 mMediaPlayer.reset()
@@ -162,7 +163,6 @@ class Playback(private val mediaPlaybackService: MediaPlaybackService, private v
                 Log.e(TAG, ex.toString() + "Exception playing song")
                 callback?.onError(ex.message)
             }
-
         }
     }
 

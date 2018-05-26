@@ -34,4 +34,10 @@ object MediaUtils {
 
         return sFormatter.format(durationFormat, *timeArgs).toString()
     }
+
+    fun removeMediaIdPrefix(mediaId: String): String = mediaId
+            .removePrefix(MediaPlaybackService.MEDIA_ID_ROOT)
+            .removePrefix(MediaPlaybackService.CATEGORY_SEPARATOR.toString())
+            .removePrefix(MediaPlaybackService.MEDIA_ID_PODCAST)
+            .removePrefix(MediaPlaybackService.LEAF_SEPARATOR.toString())
 }

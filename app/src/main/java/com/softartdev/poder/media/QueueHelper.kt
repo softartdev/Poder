@@ -20,7 +20,10 @@ import android.os.Bundle
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
-import com.softartdev.poder.media.MediaIDHelper.MEDIA_ID_MUSICS_BY_SONG
+import com.softartdev.poder.media.MediaPlaybackService.Companion.CATEGORY_SEPARATOR
+import com.softartdev.poder.media.MediaPlaybackService.Companion.LEAF_SEPARATOR
+import com.softartdev.poder.media.MediaPlaybackService.Companion.MEDIA_ID_PODCAST
+import com.softartdev.poder.media.MediaPlaybackService.Companion.MEDIA_ID_ROOT
 import timber.log.Timber
 import java.util.*
 
@@ -30,27 +33,18 @@ import java.util.*
 object QueueHelper {
 
     fun getPlayingQueue(mediaId: String, mediaProvider: MediaProvider?): List<MediaSessionCompat.QueueItem>? {
-        // extract the browsing hierarchy from the media ID:
-        val hierarchy = MediaIDHelper.getHierarchy(mediaId)
-
-        if (hierarchy.size != 2) {
-            Timber.e("Could not build a playing queue for this mediaId: %s", mediaId)
-            return null
-        }
-        val categoryType = hierarchy[0]
-        val categoryValue = hierarchy[1]
-        Timber.d("Creating playing queue for %s, %s", categoryType, categoryValue)
-
         // This sample only supports genre and by_search category types.
-        val tracks: Iterable<MediaMetadataCompat>? = when (categoryType) {
-            MEDIA_ID_MUSICS_BY_SONG -> mediaProvider?.metadataList
-            else -> {
-                Timber.e("Unrecognized category type: %s for mediaId %s", categoryType, mediaId)
-                null
-            }
+        val tracks: Iterable<MediaMetadataCompat>? = if (mediaId.contains(MEDIA_ID_PODCAST)) {
+            mediaProvider?.metadataList
+        } else {
+            Timber.e("Unrecognized category type for mediaId %s", mediaId)
+            null
         }
-        return tracks?.let { convertToQueue(it, hierarchy[0], hierarchy[1]) }
+        return tracks?.let { convertToQueue(it) }
     }
+
+    fun isIndexPlayable(index: Int, queue: List<MediaSessionCompat.QueueItem>?): Boolean
+            = queue?.let { index >= 0 && index < it.size } ?: false
 
     fun getMusicIndexOnQueue(queue: Iterable<MediaSessionCompat.QueueItem>, mediaId: String): Int {
         for ((index, item) in queue.withIndex()) {
@@ -70,12 +64,12 @@ object QueueHelper {
         return -1
     }
 
-    private fun convertToQueue(tracks: Iterable<MediaMetadataCompat>, vararg categories: String): List<MediaSessionCompat.QueueItem> {
+    private fun convertToQueue(tracks: Iterable<MediaMetadataCompat>): List<MediaSessionCompat.QueueItem> {
         val queue = ArrayList<MediaSessionCompat.QueueItem>()
         for ((count, track) in tracks.withIndex()) {
             // We create a hierarchy-aware mediaID, so we know what the queue is about by looking
             // at the QueueItem media IDs.
-            val hierarchyAwareMediaID = MediaIDHelper.createMediaID(track.description.mediaId, *categories)
+            val hierarchyAwareMediaID = MEDIA_ID_ROOT + CATEGORY_SEPARATOR + MEDIA_ID_PODCAST + LEAF_SEPARATOR + track.description.mediaId
             val duration = track.getLong(MediaMetadataCompat.METADATA_KEY_DURATION)
             val descriptionBuilder = MediaDescriptionCompat.Builder()
             val description = track.description
@@ -96,7 +90,4 @@ object QueueHelper {
         }
         return queue
     }
-
-    fun isIndexPlayable(index: Int, queue: List<MediaSessionCompat.QueueItem>?): Boolean
-            = queue?.let { index >= 0 && index < it.size } ?: false
 }

@@ -16,11 +16,6 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import com.softartdev.poder.PoderApp
 import com.softartdev.poder.R
-import com.softartdev.poder.media.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM
-import com.softartdev.poder.media.MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST
-import com.softartdev.poder.media.MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST
-import com.softartdev.poder.media.MediaIDHelper.MEDIA_ID_MUSICS_BY_SONG
-import com.softartdev.poder.media.MediaIDHelper.MEDIA_ID_ROOT
 import com.softartdev.poder.ui.main.MainActivity
 import timber.log.Timber
 import java.lang.ref.WeakReference
@@ -116,31 +111,18 @@ class MediaPlaybackService : MediaBrowserServiceCompat(), Playback.Callback {
             when (parentMediaId) {
                 MEDIA_ID_ROOT -> {
                     Timber.d("OnLoadChildren.ROOT")
-                    mediaItems.add(MediaBrowserCompat.MediaItem(MediaDescriptionCompat.Builder()
-                            .setMediaId(MEDIA_ID_MUSICS_BY_ARTIST)
-                            .setTitle("Artists")
-                            .build(),
-                            MediaBrowserCompat.MediaItem.FLAG_BROWSABLE))
-                    mediaItems.add(MediaBrowserCompat.MediaItem(MediaDescriptionCompat.Builder()
-                            .setMediaId(MEDIA_ID_MUSICS_BY_ALBUM)
-                            .setTitle("Albums")
-                            .build(),
-                            MediaBrowserCompat.MediaItem.FLAG_BROWSABLE))
-                    mediaItems.add(MediaBrowserCompat.MediaItem(MediaDescriptionCompat.Builder()
-                            .setMediaId(MEDIA_ID_MUSICS_BY_SONG)
-                            .setTitle("Songs")
-                            .build(),
-                            MediaBrowserCompat.MediaItem.FLAG_BROWSABLE))
-                    mediaItems.add(MediaBrowserCompat.MediaItem(MediaDescriptionCompat.Builder()
-                            .setMediaId(MEDIA_ID_MUSICS_BY_PLAYLIST)
-                            .setTitle("Playlists")
-                            .build(),
-                            MediaBrowserCompat.MediaItem.FLAG_BROWSABLE))
+                    val podcastsTitle = getString(R.string.title_podcasts)
+                    val podcastsDescription = with(MediaDescriptionCompat.Builder()) {
+                        setMediaId(MEDIA_ID_PODCAST)
+                        setTitle(podcastsTitle)
+                        build()
+                    }
+                    val podcastsItem = MediaBrowserCompat.MediaItem(podcastsDescription, MediaBrowserCompat.MediaItem.FLAG_BROWSABLE)
+                    mediaItems.add(podcastsItem)
                 }
-                MEDIA_ID_MUSICS_BY_SONG -> {
-                    Timber.d("OnLoadChildren.SONG")
-                    val hierarchyAwareMediaID = MediaIDHelper.createBrowseCategoryMediaID(parentMediaId, MEDIA_ID_MUSICS_BY_SONG)
-                    loadSong(mediaProvider.metadataList, mediaItems, hierarchyAwareMediaID)
+                MEDIA_ID_PODCAST -> {
+                    Timber.d("onLoadChildren.PODCAST")
+                    loadPodcast(mediaProvider.metadataList, mediaItems)
                 }
                 else -> {
                     Timber.w("Skipping unmatched parentMediaId: %s", parentMediaId)
@@ -158,9 +140,9 @@ class MediaPlaybackService : MediaBrowserServiceCompat(), Playback.Callback {
         }
     }
 
-    private fun loadSong(songList: Iterable<MediaMetadataCompat>, mediaItems: MutableList<MediaBrowserCompat.MediaItem>, parentId: String) {
+    private fun loadPodcast(songList: Iterable<MediaMetadataCompat>, mediaItems: MutableList<MediaBrowserCompat.MediaItem>) {
         for (metadata in songList) {
-            val hierarchyAwareMediaID = MediaIDHelper.createMediaID(metadata.description.mediaId, parentId)
+            val hierarchyAwareMediaID = MEDIA_ID_ROOT + CATEGORY_SEPARATOR + MEDIA_ID_PODCAST + LEAF_SEPARATOR + metadata.description.mediaId
             val songExtra = Bundle()
             songExtra.putLong(MediaMetadataCompat.METADATA_KEY_DURATION, metadata.getLong(MediaMetadataCompat.METADATA_KEY_DURATION))
             val title = metadata.getString(MediaMetadataCompat.METADATA_KEY_TITLE)
@@ -210,7 +192,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat(), Playback.Callback {
             // selected from.
             QueueHelper.getPlayingQueue(mediaId, mediaProvider)?.let { mPlayingQueue = it }
             mSession?.setQueue(mPlayingQueue)
-            val queueTitle = getString(R.string.browse_musics_by_genre_subtitle, MediaIDHelper.extractBrowseCategoryValueFromMediaID(mediaId))
+            val queueTitle = getString(R.string.browse_podcasts_subtitle, mPlayingQueue.size.toString())
             mSession?.setQueueTitle(queueTitle)
             if (mPlayingQueue.isNotEmpty()) {
                 // set the current index on queue from the media Id:
@@ -342,15 +324,18 @@ class MediaPlaybackService : MediaBrowserServiceCompat(), Playback.Callback {
             return
         }
         val queueItem = mPlayingQueue[mCurrentIndexOnQueue]
-        val musicId = MediaIDHelper.extractMusicIDFromMediaID(queueItem.description.mediaId)
-        val track = mediaProvider.getMediaById(musicId)?.metadata
+        val podcastId = queueItem.description.mediaId?.let { MediaUtils.removeMediaIdPrefix(it) }
+        val track = mediaProvider.getMediaById(podcastId)?.metadata
         val trackId = track?.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID)
-        if (musicId != trackId) {
-            val e = IllegalStateException("track ID should match musicId.")
-            Timber.e(e, "track ID should match musicId. musicId=%s trackId=%s mediaId from queueItem=%s title from queueItem=%s mediaId from track=%s title from track=%s source.hashcode from track=%s", musicId, trackId, queueItem.description.mediaId, queueItem.description.title, track?.description?.mediaId, track?.description?.title, track?.getString(MediaProvider.CUSTOM_METADATA_TRACK_SOURCE)?.hashCode())
+        if (podcastId != trackId) {
+            val e = IllegalStateException("track ID should match podcastId.")
+            val errorMessage = "track ID should match musicId. podcastId=$podcastId trackId=$trackId \n " +
+                    "mediaId from queueItem=${queueItem.description.mediaId} title from queueItem=${queueItem.description.title} \n " +
+                    "mediaId from track=${track?.description?.mediaId} title from track=${track?.description?.title} source.hashcode from track=${track?.getString(MediaProvider.CUSTOM_METADATA_TRACK_SOURCE)?.hashCode()}"
+            Timber.e(e, errorMessage)
             throw e
         }
-        Timber.d("Updating metadata for MusicID=%s", musicId)
+        Timber.d("Updating metadata for PodcastID=%s", podcastId)
         mSession?.setMetadata(track)
 
         // Set the proper album artwork on the media session, so it can be shown in the
@@ -369,7 +354,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat(), Playback.Callback {
                             .putBitmap(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON, iconImage)
                             .build()
                     // If we are still playing the same music
-                    val currentPlayingId = MediaIDHelper.extractMusicIDFromMediaID(queueItem.description.mediaId)
+                    val currentPlayingId = queueItem.description.mediaId
                     if (trackId == currentPlayingId) {
                         mSession?.setMetadata(trackMetadata)
                     }
@@ -493,6 +478,10 @@ class MediaPlaybackService : MediaBrowserServiceCompat(), Playback.Callback {
     }
 
     companion object {
+        const val MEDIA_ID_ROOT = "__ROOT__"
+        const val MEDIA_ID_PODCAST = "__PODCAST__"
+        const val CATEGORY_SEPARATOR: Char = 31.toChar()
+        const val LEAF_SEPARATOR: Char = 30.toChar()
         private const val STOP_DELAY = 30000 // Delay stopSelf by using a handler.
         const val ACTION_CMD = "com.android.music.ACTION_CMD"
         const val CMD_NAME = "CMD_NAME"

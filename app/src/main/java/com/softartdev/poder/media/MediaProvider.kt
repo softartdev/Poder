@@ -54,8 +54,8 @@ class MediaProvider(@ApplicationContext private val context: Context) {
                     val titleColumn = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
                     val pathColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DATA)
                     do {
-                        Timber.i("Media ID: %s Title: %s", cursor.getString(idColumn), cursor.getString(titleColumn))
                         val thisId = cursor.getLong(idColumn)
+                        Timber.i("Media ID: %s Title: %s", thisId, cursor.getString(titleColumn))
                         val thisPath = cursor.getString(pathColumn)
                         val metadata = retrieveMetadata(thisId, thisPath) ?: continue
                         Timber.i("MediaMetadataCompat: %s", metadata)
@@ -95,8 +95,7 @@ class MediaProvider(@ApplicationContext private val context: Context) {
             val title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE)
             val album = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)
             val artist = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
-            val duration: Long = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION).toLongOrNull()
-                    ?: 0
+            val duration: Long = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION).toLongOrNull() ?: 0
 
             val embedded: Bitmap? = retriever.embeddedPicture?.let { BitmapFactory.decodeByteArray(it, 0, it.size) }
             val bitmap: Bitmap? = embedded?.let { Bitmap.createScaledBitmap(it, defaultArtwork.width, defaultArtwork.height, false) }

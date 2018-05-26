@@ -3,6 +3,7 @@ package com.softartdev.poder.ui.media
 import android.content.ComponentName
 import android.media.AudioManager
 import android.os.Bundle
+import android.os.Handler
 import android.os.SystemClock
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
@@ -27,6 +28,7 @@ class MediaPlaybackActivity(override val layout: Int = R.layout.activity_media_p
     private var lastSeekEventTime: Long = 0
 
     private var mediaBrowserCompat: MediaBrowserCompat? = null
+    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,6 +125,9 @@ class MediaPlaybackActivity(override val layout: Int = R.layout.activity_media_p
     override fun onStop() {
         super.onStop()
         mediaBrowserCompat?.disconnect()
+        MediaControllerCompat.getMediaController(this@MediaPlaybackActivity)?.apply {
+            unregisterCallback(mediaControllerCallback)
+        }
     }
 
     override fun onResume() {
@@ -156,9 +161,18 @@ class MediaPlaybackActivity(override val layout: Int = R.layout.activity_media_p
             setShuffleButtonImage()
             setPauseButtonImage()
             updateTrackInfo()
+            handler.post(object : Runnable {
+                override fun run() {
+                    val delay = updateProgressBar()
+                    handler.postDelayed(this, delay)
+                }
+            })
         }
         override fun onConnectionFailed() = Timber.d("onConnectionFailed")
-        override fun onConnectionSuspended() = MediaControllerCompat.setMediaController(this@MediaPlaybackActivity, null)
+        override fun onConnectionSuspended() {
+            handler.removeCallbacksAndMessages(null)
+            MediaControllerCompat.setMediaController(this@MediaPlaybackActivity, null)
+        }
     }
 
     private fun setShuffleButtonImage() {

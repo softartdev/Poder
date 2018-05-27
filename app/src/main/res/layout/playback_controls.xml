@@ -5,19 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/album_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause_image_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/play_pause_image_button"
+        app:srcCompat="@drawable/albumart_mp_unknown"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:id="@+id/title_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/play_pause_image_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/album_image_view"
+        app:layout_constraintTop_toTopOf="@+id/play_pause_image_button"
         tools:text="@tools:sample/lorem" />
 
     <TextView
@@ -26,13 +38,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause_image_button"
         app:layout_constraintEnd_toStartOf="@+id/play_pause_image_button"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/album_image_view"
         app:layout_constraintTop_toBottomOf="@+id/title_text_view"
         tools:text="@tools:sample/lorem" />
 
@@ -40,8 +52,6 @@
         android:id="@+id/play_pause_image_button"
         android:layout_width="@android:dimen/notification_large_icon_width"
         android:layout_height="@android:dimen/notification_large_icon_height"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

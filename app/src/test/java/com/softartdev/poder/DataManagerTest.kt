@@ -6,6 +6,7 @@ import com.softartdev.poder.common.TestDataFactory
 import com.softartdev.poder.data.DataManager
 import com.softartdev.poder.data.model.PokemonListResponse
 import com.softartdev.poder.data.remote.PokemonApi
+import com.softartdev.poder.media.MediaProvider
 import com.softartdev.poder.util.RxSchedulersOverrideRule
 import io.reactivex.Single
 import org.junit.Rule
@@ -29,7 +30,9 @@ class DataManagerTest {
         on { getPokemon(anyString()) } doReturn Single.just(pokemon)
     }
 
-    private var dataManager = DataManager(mockPokemonApi)
+    val mockMediaProvider: MediaProvider = mock()
+
+    private var dataManager = DataManager(mockPokemonApi, mockMediaProvider)
 
     @Test
     fun getPokemonListCompletesAndEmitsPokemonList() {

@@ -4,6 +4,7 @@ import com.softartdev.poder.injection.PerActivity
 import com.softartdev.poder.injection.module.ActivityModule
 import com.softartdev.poder.ui.base.BaseActivity
 import com.softartdev.poder.ui.detail.DetailActivity
+import com.softartdev.poder.ui.media.MediaPlaybackActivity
 import com.softartdev.poder.ui.pokemon.PokemonActivity
 import dagger.Subcomponent
 
@@ -15,4 +16,6 @@ interface ActivityComponent {
     fun inject(pokemonActivity: PokemonActivity)
 
     fun inject(detailActivity: DetailActivity)
+
+    fun inject(mediaPlaybackActivity: MediaPlaybackActivity)
 }

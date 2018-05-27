@@ -7,7 +7,6 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import butterknife.ButterKnife
 import butterknife.OnClick
 import com.softartdev.poder.R
 
@@ -36,7 +35,6 @@ class ErrorView : LinearLayout {
         orientation = LinearLayout.VERTICAL
         gravity = Gravity.CENTER
         LayoutInflater.from(context).inflate(R.layout.view_error, this)
-        ButterKnife.bind(this)
     }
 
     @OnClick(R.id.button_reload)

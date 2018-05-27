@@ -15,16 +15,32 @@ import com.softartdev.poder.injection.ApplicationContext
 import com.softartdev.poder.util.ViewUtil
 import timber.log.Timber
 import java.io.File
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentMap
 
 class MediaProvider(@ApplicationContext private val context: Context) {
-
     private val defaultArtwork = ViewUtil.getDefaultAlbumArt(context)
-
+    val metadataList: MutableList<MediaMetadataCompat> = mutableListOf()
     private var podcastList: List<MediaBrowserCompat.MediaItem>? = null
+    private val mediaListById: ConcurrentMap<String, Podcast> = ConcurrentHashMap()
+    @Volatile private var currentState = State.NON_INITIALIZED
+
+    val isInitialized: Boolean
+        get() = currentState == State.INITIALIZED
+
+    /**
+     * Return the MediaMetadataCompat for the given musicID.
+     *
+     * @param musicId The unique, non-hierarchical music ID.
+     */
+    fun getMediaById(musicId: String?): Podcast? {
+        return if (mediaListById.containsKey(musicId)) mediaListById[musicId] else null
+    }
 
     var podcasts: List<MediaBrowserCompat.MediaItem>?
         get() {
             if (podcastList == null) {
+                currentState = State.INITIALIZING
                 val cursor: Cursor = context.contentResolver.query(
                         MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                         null,
@@ -33,19 +49,18 @@ class MediaProvider(@ApplicationContext private val context: Context) {
                         MediaStore.Audio.Media.TITLE + " ASC"
                 ) ?: throw IllegalStateException("Failed to retrieve music: cursor is null")
 
-                val metadataList: MutableList<MediaMetadataCompat> = mutableListOf()
-
                 if (cursor.moveToFirst()) {
                     val idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
                     val titleColumn = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
                     val pathColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DATA)
                     do {
-                        Timber.i("Media ID: %s Title: %s", cursor.getString(idColumn), cursor.getString(titleColumn))
                         val thisId = cursor.getLong(idColumn)
+                        Timber.i("Media ID: %s Title: %s", thisId, cursor.getString(titleColumn))
                         val thisPath = cursor.getString(pathColumn)
                         val metadata = retrieveMetadata(thisId, thisPath) ?: continue
                         Timber.i("MediaMetadataCompat: %s", metadata)
                         metadataList.add(metadata)
+                        mediaListById[thisId.toString()] = Podcast(thisId, metadata, null)
                     } while (cursor.moveToNext())
                     cursor.close()
                 } else {
@@ -61,10 +76,13 @@ class MediaProvider(@ApplicationContext private val context: Context) {
                     mediaList.add(item)
                 }
                 podcastList = mediaList
+                currentState = State.INITIALIZED
             }
             return podcastList
         }
         set(value) {
+            metadataList.clear()
+            currentState = State.NON_INITIALIZED
             podcastList = value
         }
 
@@ -77,8 +95,7 @@ class MediaProvider(@ApplicationContext private val context: Context) {
             val title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE)
             val album = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)
             val artist = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
-            val duration: Long = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION).toLongOrNull()
-                    ?: 0
+            val duration: Long = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION).toLongOrNull() ?: 0
 
             val embedded: Bitmap? = retriever.embeddedPicture?.let { BitmapFactory.decodeByteArray(it, 0, it.size) }
             val bitmap: Bitmap? = embedded?.let { Bitmap.createScaledBitmap(it, defaultArtwork.width, defaultArtwork.height, false) }
@@ -130,9 +147,13 @@ class MediaProvider(@ApplicationContext private val context: Context) {
         }
     }
 
+    internal enum class State {
+        NON_INITIALIZED, INITIALIZING, INITIALIZED
+    }
+
     companion object {
-        private const val UNKNOWN = "UNKNOWN"
-        private const val CUSTOM_METADATA_TRACK_SOURCE = "__SOURCE__"
+        const val UNKNOWN = "UNKNOWN"
+        const val CUSTOM_METADATA_TRACK_SOURCE = "__SOURCE__"
         private const val CATEGORY_SEPARATOR: Char = 31.toChar()
         private const val MEDIA_ID_MUSICS_BY_SONG = "__BY_SONG__" // parent id
         private const val LEAF_SEPARATOR: Char = 30.toChar()

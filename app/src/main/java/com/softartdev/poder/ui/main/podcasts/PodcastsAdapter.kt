@@ -61,7 +61,9 @@ constructor(@ApplicationContext val context: Context) : RecyclerView.Adapter<Pod
                         PlaybackStateCompat.STATE_PAUSED -> animation.stop()
                     }
                 } else {
-                    mediaDescriptionCompat.iconBitmap?.let { itemView.item_podcast_icon_image_view.setImageBitmap(it) }
+                    mediaDescriptionCompat.iconBitmap?.let {
+                        itemView.item_podcast_icon_image_view.setImageBitmap(it)
+                    } ?: itemView.item_podcast_icon_image_view.setImageResource(R.drawable.ic_podcasts_black_24dp)
                 }
                 itemView.setOnClickListener { clickListener?.onMediaIdClick(this) }
             }

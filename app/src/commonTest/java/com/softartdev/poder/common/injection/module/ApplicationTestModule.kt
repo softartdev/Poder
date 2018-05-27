@@ -7,6 +7,7 @@ import dagger.Provides
 import com.softartdev.poder.data.DataManager
 import com.softartdev.poder.data.remote.PokemonApi
 import com.softartdev.poder.injection.ApplicationContext
+import com.softartdev.poder.media.MediaProvider
 import org.mockito.Mockito.mock
 import javax.inject.Singleton
 
@@ -43,6 +44,12 @@ class ApplicationTestModule(private val application: Application) {
     @Singleton
     internal fun provideMvpBoilerplateService(): PokemonApi {
         return mock(PokemonApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    internal fun provideMediaProvider(): MediaProvider {
+        return mock(MediaProvider::class.java)
     }
 
 }
